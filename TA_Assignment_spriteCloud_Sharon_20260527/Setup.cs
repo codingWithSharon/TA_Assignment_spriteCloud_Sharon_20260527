@@ -1,6 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelpers.DummyJson;
 using TA_Assignment_spriteCloud_Sharon_20260527.UITest.PageObjectModels.SauceDemoPages;
 
 namespace PagesSetup;
@@ -14,8 +15,8 @@ public class Setup : ContextTest
     public SauceDemoLoginPage sauceDemoLoginPage = null!;
 
     // API
-    //public RequestHelper requestHelper = null!;
-    //public VroegPiekenHelper vroegPiekenHelper = null!;
+    public DummyJsonRequestHelper dummyJsonRequestHelper = null!;
+    public DummyJsonResponseHelper dummyJsonResponseHelper = null!;
 
     public override BrowserNewContextOptions ContextOptions()
     {
