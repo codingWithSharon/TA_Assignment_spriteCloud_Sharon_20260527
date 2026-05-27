@@ -5,14 +5,14 @@ on:
     branches: [ main ]
   pull_request:
   schedule:
-    - cron: "30 17 * * *" # Run daily at 17:30 Netherlands time
+    - cron: "30 17 * * *"
 
 jobs:
 
   ui-tests:
     runs-on: ubuntu-latest
     env:
-      AutomationExerciseApiBaseUrl: "https://automationexercise.com"
+      SauceDemoBaseUrl: "https://www.saucedemo.com"
       
     steps:
       - name: Checkout code
@@ -58,5 +58,5 @@ jobs:
 
       - name: Run API tests
         env:
-          AutomationExerciseApiBaseUrl: "https://automationexercise.com"
+          DummyJsonBaseUrl: "https://dummyjson.com/"
         run: dotnet test --logger "trx;LogFileName=api-test-results.trx" --filter "TestCategory=API"

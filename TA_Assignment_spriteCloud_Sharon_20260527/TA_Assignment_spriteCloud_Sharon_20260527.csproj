@@ -20,10 +20,6 @@
 
   <ItemGroup>
     <Folder Include="APITest\Helpers\GenericHelpers\" />
-    <Folder Include="APITest\Helpers\SpecificHelpers\" />
-    <Folder Include="APITest\Models\Responses\" />
-    <Folder Include="APITest\Models\Requests\" />
-    <Folder Include="APITest\TestFixtures\DummyJson\" />
   </ItemGroup>
 
   <ItemGroup>
