@@ -59,4 +59,4 @@ jobs:
       - name: Run API tests
         env:
           AutomationExerciseApiBaseUrl: "https://automationexercise.com"
-        run: dotnet test --logger "trx;LogFileName=api-test-results.trx" --filter "TestCategory=API"
+        run: dotnet test --logger "trx;LogFileName=api-test-results.trx" --filter "TestCategory=API" 
