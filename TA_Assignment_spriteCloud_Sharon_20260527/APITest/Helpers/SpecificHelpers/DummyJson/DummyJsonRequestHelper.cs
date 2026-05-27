@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TA_Assignment_spriteCloud_Sharon_20260527.APITest.Models.Requests;
 
 namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelpers.DummyJson
 {
@@ -11,21 +12,53 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
     {
         private readonly IAPIRequestContext _context;
 
+        public readonly string DummyJsonBaseUrl =
+           Environment.GetEnvironmentVariable("DummyJsonBaseUrl")
+           ?? throw new InvalidOperationException("DummyJsonBaseUrl not set.");
+
         public DummyJsonRequestHelper(IAPIRequestContext context)
         {
             _context = context;
         }
 
         // GET request methods
-        //public async Task<IAPIResponse> PostAsyncJson(string endpoint, object? data = null, Dictionary<string, string>? headers = null)
-        //{
-        //    var requestOptions = new APIRequestContextOptions
-        //    {
-        //        DataObject = data,
-        //        Headers = headers
-        //    };
+        public async Task<IAPIResponse> GetSingleProduct(string endpoint)
+        {
+            return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
+        }
 
-        //    return await _context.PostAsync($"{AutomationExerciseBaseUrl}{endpoint}", requestOptions);
+        // POST request methods
+        public async Task<IAPIResponse> Login(LoginRequest credentials)
+        {
+            var requestBody = new
+            {
+                username = credentials.username,
+                password = credentials.password
+            };
+            return await _context.PostAsync($"{DummyJsonBaseUrl}/auth/login", new APIRequestContextOptions
+            {
+                DataObject = requestBody
+            });
+        }
+
+        //public async Task<IAPIResponse> AddProducts(AddProductToCartRequest search)
+        //{
+        //    var requestBody = new
+        //    {
+        //        productId = search.productId,
+        //        quantity = search.quantity
+        //    };
+        //    return await _context.PostAsync($"{DummyJsonBaseUrl}add", new APIRequestContextOptions
+        //    {
+        //        DataObject = requestBody
+        //    });
         //}
+
+        // Helper request functions
+        public static class SelectUserCredentials
+        {
+            public static LoginRequest User1() => new() { username = "emilys", password = "emilyspass" };
+            public static LoginRequest User2() => new() { username = "michaelw", password = "michaelwpass" };
+        }
     }
 }
