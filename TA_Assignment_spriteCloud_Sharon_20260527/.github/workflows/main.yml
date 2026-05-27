@@ -3,8 +3,8 @@
 on:
   push:
     branches: [ main ]
-    workflow_dispatch:
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: "30 17 * * *" # Run daily at 17:30 Netherlands time
 
