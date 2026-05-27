@@ -4,7 +4,6 @@ global using Microsoft.Playwright.NUnit;
 global using NUnit.Framework;
 
 using Microsoft.Playwright;
-using NUnit.Framework;
 using System.Globalization;
 
 [SetUpFixture]
