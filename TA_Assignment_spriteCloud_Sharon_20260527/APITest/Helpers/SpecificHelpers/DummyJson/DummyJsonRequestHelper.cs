@@ -69,7 +69,8 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
         public static class SelectUserCredentials
         {
             public static LoginRequest User1() => new() { username = "emilys", password = "emilyspass" };
-            public static LoginRequest User2() => new() { username = "michaelw", password = "michaelwpass" };
+            public static LoginRequest User2() => new() { username = "Michaelw", password = "michaelwpass" };
+            public static LoginRequest User3() => new() { username = "emilys", password = "pasword" };
         }
     }
 }

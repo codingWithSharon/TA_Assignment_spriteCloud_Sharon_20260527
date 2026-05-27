@@ -69,5 +69,10 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Models.Responses
         public int UserId { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class ErrorResponse
+    {
+        public string Message { get; set; }
+    }
 }
 
