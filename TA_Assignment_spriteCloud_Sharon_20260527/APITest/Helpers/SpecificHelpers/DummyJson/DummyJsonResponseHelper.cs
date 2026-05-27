@@ -46,11 +46,21 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             return JsonSerializer.Deserialize<CartResponse>(responseBody, options);
         }
 
-        public async Task<DeleteCartResponse> DeleteCartResponse(IAPIResponse response)
+        public async Task<DeleteCartResponse> GetDeleteCartResponse(IAPIResponse response)
         {
             var responseBody = await response.TextAsync();
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             return JsonSerializer.Deserialize<DeleteCartResponse>(responseBody, options);
+        }
+
+        // Error validation methods
+
+        // Login error method
+        public async Task<ErrorResponse> GetLoginErrorResponse(IAPIResponse response)
+        {
+            var json = await response.TextAsync();
+            return JsonSerializer.Deserialize<ErrorResponse>(json, _jsonOptions)
+                ?? throw new InvalidOperationException("Failed to deserialize ErrorResponse.");
         }
     }
 }

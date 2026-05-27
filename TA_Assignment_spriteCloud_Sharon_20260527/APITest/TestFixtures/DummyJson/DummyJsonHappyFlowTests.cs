@@ -8,7 +8,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
 {
     [TestFixture]
     [Category("API")]
-    public class DummyJsonTests : ApiSetup
+    public class DummyJsonHappyFlowTests : ApiSetup
     {
         [SetUp]
         public void SetUp()
@@ -138,7 +138,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
             Console.WriteLine($"Body: {responseBody}");
-            var deleteResponse = await dummyJsonResponseHelper.DeleteCartResponse(response);
+            var deleteResponse = await dummyJsonResponseHelper.GetDeleteCartResponse(response);
             Assert.That(deleteResponse, Is.Not.Null, "Response could not be deserialized into CartResponse");
             Assert.Multiple(() =>
             {
