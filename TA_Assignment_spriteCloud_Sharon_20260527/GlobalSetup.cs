@@ -16,7 +16,6 @@ public class GlobalSetup
     {
         Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
-        // Set culture
         var culture = new CultureInfo("nl-NL");
         CultureInfo.DefaultThreadCurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
