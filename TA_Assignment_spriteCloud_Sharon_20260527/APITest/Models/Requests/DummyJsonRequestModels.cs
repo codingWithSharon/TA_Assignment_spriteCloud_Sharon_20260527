@@ -14,7 +14,13 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Models.Requests
 
     public class AddProductToCartRequest
     {
-        public int ProductId { get; set; }
+        public int UserId { get; set; }
+        public List<CartProduct> Products { get; set; }
+    }
+
+    public class CartProduct
+    {
+        public int Id { get; set; }
         public int Quantity { get; set; }
     }
 }

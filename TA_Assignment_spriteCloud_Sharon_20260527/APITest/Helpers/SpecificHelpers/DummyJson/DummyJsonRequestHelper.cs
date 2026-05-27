@@ -41,18 +41,29 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             });
         }
 
-        //public async Task<IAPIResponse> AddProducts(AddProductToCartRequest search)
-        //{
-        //    var requestBody = new
-        //    {
-        //        productId = search.productId,
-        //        quantity = search.quantity
-        //    };
-        //    return await _context.PostAsync($"{DummyJsonBaseUrl}add", new APIRequestContextOptions
-        //    {
-        //        DataObject = requestBody
-        //    });
-        //}
+        public async Task<IAPIResponse> AddProducts(AddProductToCartRequest request)
+        {
+            var requestBody = new
+            {
+                userId = request.UserId,
+                products = request.Products.Select(p => new
+                {
+                    id = p.Id,
+                    quantity = p.Quantity
+                }).ToList()
+            };
+
+            return await _context.PostAsync($"{DummyJsonBaseUrl}carts/add", new APIRequestContextOptions
+            {
+                DataObject = requestBody
+            });
+        }
+
+        // DELETE request methods
+        public async Task<IAPIResponse> DeleteCart(string endpoint)
+        {
+            return await _context.DeleteAsync($"{DummyJsonBaseUrl}{endpoint}");
+        }
 
         // Helper request functions
         public static class SelectUserCredentials

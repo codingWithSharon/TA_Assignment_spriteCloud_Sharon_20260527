@@ -11,7 +11,6 @@ public class ApiSetup
 
     protected DummyJsonRequestHelper dummyJsonRequestHelper = null!;
     protected DummyJsonResponseHelper dummyJsonResponseHelper = null!;
-    //protected SauceDemoLoginPage sauceDemoHomePage = null!;
 
     [OneTimeSetUp]
     public async Task Setup()
@@ -22,13 +21,6 @@ public class ApiSetup
         {
             Timeout = 300000
         });
-
-        // Generic API Helper initialization
-        //RequestHelper requestHelper = new RequestHelper(Api);
-
-        // API Specific helpers initialization
-        //vroegPiekenHelper = new VroegPiekenHelper(Api);
-        //automationExerciseHelper = new AutomationExerciseHelper(Api);
     }
 
     [OneTimeTearDown]

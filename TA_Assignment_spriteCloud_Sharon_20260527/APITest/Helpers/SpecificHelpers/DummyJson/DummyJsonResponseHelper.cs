@@ -1,5 +1,4 @@
-﻿//using Microsoft.Playwright;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
 {
     public class DummyJsonResponseHelper
     {
+        // Login methods
         private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -30,11 +30,27 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
                 ?? throw new InvalidOperationException("AccessToken was null in login response.");
         }
 
+        // Product methods
         public async Task<ProductResponse> GetProductResponse(IAPIResponse response)
         {
             var responseBody = await response.TextAsync();
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             return JsonSerializer.Deserialize<ProductResponse>(responseBody, options);
+        }
+
+        // Cart methods
+        public async Task<CartResponse> GetCartResponse(IAPIResponse response)
+        {
+            var responseBody = await response.TextAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            return JsonSerializer.Deserialize<CartResponse>(responseBody, options);
+        }
+
+        public async Task<DeleteCartResponse> DeleteCartResponse(IAPIResponse response)
+        {
+            var responseBody = await response.TextAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            return JsonSerializer.Deserialize<DeleteCartResponse>(responseBody, options);
         }
     }
 }
