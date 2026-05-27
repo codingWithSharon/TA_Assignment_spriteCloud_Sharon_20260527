@@ -36,18 +36,16 @@ public class Setup : ContextTest
     [SetUp]
     public async Task StartTracing()
     {
-        var playwright = GlobalSetup.Playwright;
+        await Context.Tracing.StartAsync(new() { Screenshots = true, Snapshots = true, Sources = true });
+
         Page = await Context.NewPageAsync();
 
-        IAPIRequestContext = await playwright.APIRequest.NewContextAsync(new APIRequestNewContextOptions
+        IAPIRequestContext = await GlobalSetup.Playwright.APIRequest.NewContextAsync(new APIRequestNewContextOptions
         {
             Timeout = 150000
         });
 
-        Page = await Context.NewPageAsync();
-
-        SauceDemoLoginPage sauceDemoHomePage = new SauceDemoLoginPage(Page);
-
+        sauceDemoLoginPage = new SauceDemoLoginPage(Page);
     }
 
     [TearDown]
@@ -60,8 +58,12 @@ public class Setup : ContextTest
                 $"{TestContext.CurrentContext.Test.Name}.zip");
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
             await Context.Tracing.StopAsync(new() { Path = path });
-
-            await IAPIRequestContext.DisposeAsync();
         }
+        else
+        {
+            await Context.Tracing.StopAsync();
+        }
+
+        await IAPIRequestContext.DisposeAsync();
     }
 }
