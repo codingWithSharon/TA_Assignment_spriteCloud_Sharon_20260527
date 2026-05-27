@@ -1,31 +1,40 @@
-﻿using Microsoft.Playwright;
+﻿//using Microsoft.Playwright;
+using Microsoft.Playwright;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using TA_Assignment_spriteCloud_Sharon_20260527.APITest.Models.Responses;
 
 namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelpers.DummyJson
 {
     public class DummyJsonResponseHelper
     {
-        private readonly IAPIRequestContext _context;
-
-        public DummyJsonResponseHelper(IAPIRequestContext context)
+        private static readonly JsonSerializerOptions _jsonOptions = new()
         {
-            _context = context;
+            PropertyNameCaseInsensitive = true
+        };
+
+        public async Task<LoginResponse> GetLoginResponse(IAPIResponse response)
+        {
+            var json = await response.TextAsync();
+
+            return JsonSerializer.Deserialize<LoginResponse>(json, _jsonOptions)
+                ?? throw new InvalidOperationException("Failed to deserialize LoginResponse.");
         }
 
-        // GET request methods
-        //public async Task<IAPIResponse> PostAsyncJson(string endpoint, object? data = null, Dictionary<string, string>? headers = null)
-        //{
-        //    var requestOptions = new APIRequestContextOptions
-        //    {
-        //        DataObject = data,
-        //        Headers = headers
-        //    };
+        public async Task<string> GetAccessToken(IAPIResponse response)
+        {
+            var loginResponse = await GetLoginResponse(response);
 
-        //    return await _context.PostAsync($"{AutomationExerciseBaseUrl}{endpoint}", requestOptions);
-        //}
+            return loginResponse.AccessToken
+                ?? throw new InvalidOperationException("AccessToken was null in login response.");
+        }
+
+        public async Task<ProductResponse> GetProductResponse(IAPIResponse response)
+        {
+            var responseBody = await response.TextAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            return JsonSerializer.Deserialize<ProductResponse>(responseBody, options);
+        }
     }
 }
