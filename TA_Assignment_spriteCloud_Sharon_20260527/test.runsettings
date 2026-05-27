@@ -1,0 +1,30 @@
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<Playwright>
+		<BrowserName>chromium</BrowserName>
+		<LaunchOptions>
+			<Headless>false</Headless>
+			<SlowMo>150</SlowMo>
+			<Args>
+				<Arg>--start-maximized</Arg>
+				<Arg>--disable-web-security</Arg>
+				<Arg>--disable-features=ImprovedCookieControls</Arg>
+				<Arg>--autoplay-policy=no-user-gesture-required</Arg>
+			</Args>
+			<FirefoxUserPrefs>
+				<media.autoplay.default>0</media.autoplay.default>
+				<media.autoplay.blocking_policy>0</media.autoplay.blocking_policy>
+			</FirefoxUserPrefs>
+		</LaunchOptions>
+		<ExpectTimeout>15000</ExpectTimeout>
+	</Playwright>
+	<!-- Environment variables for UI and API urls -->
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<!-- UI Base URLs -->
+			<SauceDemoBaseUrl>https://www.saucedemo.com</SauceDemoBaseUrl>
+			<!-- API Base URLs -->
+			<DummyJsonBaseUrl>https://dummyjson.com/</DummyJsonBaseUrl>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>
