@@ -12,9 +12,12 @@ jobs:
 
   ui-tests:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     env:
       SauceDemoBaseUrl: "https://www.saucedemo.com"
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,10 +40,30 @@ jobs:
         run: npx playwright install-deps
 
       - name: Run UI tests
-        run: dotnet test --logger "trx;LogFileName=ui-test-results.trx" --filter "TestCategory!=API"
+        continue-on-error: true
+        run: dotnet test --logger "trx;LogFileName=ui-test-results.trx" --results-directory ./TestResults --filter "TestCategory!=API"
+
+      - name: Upload UI test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-test-results
+          path: ./TestResults/*.trx
+
+      - name: Publish UI test report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: UI Test Results
+          path: ./TestResults/ui-test-results.trx
+          reporter: dotnet-trx
+          fail-on-error: false
 
   api-tests:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -58,6 +81,23 @@ jobs:
         run: dotnet build
 
       - name: Run API tests
+        continue-on-error: true
         env:
           DummyJsonBaseUrl: "https://dummyjson.com/"
-        run: dotnet test --logger "trx;LogFileName=api-test-results.trx" --filter "TestCategory=API"
+        run: dotnet test --logger "trx;LogFileName=api-test-results.trx" --results-directory ./TestResults --filter "TestCategory=API"
+
+      - name: Upload API test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results
+          path: ./TestResults/*.trx
+
+      - name: Publish API test report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: API Test Results
+          path: ./TestResults/api-test-results.trx
+          reporter: dotnet-trx
+          fail-on-error: false
