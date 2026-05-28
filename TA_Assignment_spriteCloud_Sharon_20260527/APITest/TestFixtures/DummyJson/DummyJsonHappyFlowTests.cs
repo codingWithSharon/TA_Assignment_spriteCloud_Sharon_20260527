@@ -31,13 +31,13 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             Console.WriteLine($"Status:   {response.Status}");
             Console.WriteLine($"Body:     {responseBody}");
 
+            Assert.That(response.Status, Is.EqualTo(200),
+                $"Expected 200 OK but got {response.Status}");
 
             var loginResponse = await dummyJsonResponseHelper.GetLoginResponse(response);
 
             Assert.Multiple(() =>
             {
-                Assert.That(response.Status, Is.EqualTo(200),
-                    $"Expected 200 OK but got {response.Status}");
                 Assert.That(loginResponse.AccessToken, Is.Not.Null.And.Not.Empty,
                     "AccessToken should not be empty");
                 Assert.That(loginResponse.RefreshToken, Is.Not.Null.And.Not.Empty,
@@ -60,14 +60,15 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             Console.WriteLine($"Status: {response.Status}");
             Console.WriteLine($"Body: {responseBody}");
 
+            Assert.That(response.Status, Is.EqualTo(200),
+                $"Expected 200 OK but got {response.Status}");
+
             var productResponse = await dummyJsonResponseHelper.GetProductResponse(response);
 
             Assert.That(productResponse, Is.Not.Null, "Response body could not be deserialized into ProductResponse");
 
             Assert.Multiple(() =>
             {
-                Assert.That(response.Status, Is.EqualTo(200),
-                    $"Expected 200 OK but got {response.Status}");
                 Assert.That(productResponse.Id, Is.EqualTo(1),
                     "Product ID should be 1");
                 Assert.That(productResponse.Title, Is.EqualTo("Essence Mascara Lash Princess"),
@@ -80,6 +81,9 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
                     "Product SKU should be 'BEA-ESS-ESS-001'");
                 Assert.That(productResponse.Description, Is.Not.Null.And.Not.Empty,
                     "Description should not be empty");
+                Assert.That(productResponse.Price, Is.GreaterThan(0));
+                Assert.That(productResponse.Rating, Is.InRange(0, 5));
+                Assert.That(productResponse.Stock, Is.GreaterThanOrEqualTo(0));
             });
         }
 
@@ -108,15 +112,19 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             Console.WriteLine($"Status: {addResponse.Status}");
             Console.WriteLine($"Body: {responseBody}");
 
+            Assert.That(addResponse.Status, Is.EqualTo(201),
+                $"Expected 201 Created but got {addResponse.Status}");
+
             var cartResponse = await dummyJsonResponseHelper.GetCartResponse(addResponse);
             Assert.That(cartResponse, Is.Not.Null, "Response could not be deserialized into CartResponse");
 
             Assert.Multiple(() =>
             {
-                Assert.That(addResponse.Status, Is.EqualTo(201),
-                    $"Expected 201 Created but got {addResponse.Status}");
-                Assert.That(cartResponse.Products, Is.Not.Null.And.Not.Empty,
-                    "Response should contain cart ID and products");
+                Assert.That(cartResponse.Products, Has.Count.EqualTo(3),
+                    "Cart should contain exactly 3 products");
+                var returnedIds = cartResponse.Products.Select(p => p.Id);
+                Assert.That(returnedIds, Is.EquivalentTo(new[] { 1, 2, 3 }),
+                    "Returned product IDs should match the ones sent");
                 Assert.That(cartResponse.UserId, Is.EqualTo(1),
                     "UserId should be 1");
                 Assert.That(cartResponse.TotalProducts, Is.EqualTo(3),
@@ -138,12 +146,14 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
             Console.WriteLine($"Body: {responseBody}");
+
+            Assert.That(response.Status, Is.EqualTo(200),
+                $"Expected 200 OK but got {response.Status}");
+
             var deleteResponse = await dummyJsonResponseHelper.GetDeleteCartResponse(response);
             Assert.That(deleteResponse, Is.Not.Null, "Response could not be deserialized into CartResponse");
             Assert.Multiple(() =>
             {
-                Assert.That(response.Status, Is.EqualTo(200),
-                    $"Expected 200 OK but got {response.Status}");
                 Assert.That(deleteResponse.Id, Is.EqualTo(1),
                     "Deleted cart ID should be 1");
                 Assert.That(deleteResponse.UserId, Is.EqualTo(1),
