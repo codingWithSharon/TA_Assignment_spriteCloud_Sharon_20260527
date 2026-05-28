@@ -21,7 +21,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             _context = context;
         }
 
-        // GET request methods
+        #region GET Requests methods
         public async Task<IAPIResponse> GetSingleProduct(string endpoint)
         {
             return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
@@ -36,8 +36,9 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
         {
             return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
         }
+        #endregion
 
-        // POST request methods
+        #region POST Requests methods
         public async Task<IAPIResponse> Login(LoginRequest credentials)
         {
             var requestBody = new
@@ -68,19 +69,22 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
                 DataObject = requestBody
             });
         }
+        #endregion
 
-        // DELETE request methods
+        #region DELETE Requests methods
         public async Task<IAPIResponse> DeleteCart(string endpoint)
         {
             return await _context.DeleteAsync($"{DummyJsonBaseUrl}{endpoint}");
         }
+        #endregion
 
-        // Helper request functions
+        #region Helper request functions
         public static class SelectUserCredentials
         {
             public static LoginRequest User1() => new() { username = "emilys", password = "emilyspass" };
             public static LoginRequest User2() => new() { username = "Michaelw", password = "michaelwpass" };
             public static LoginRequest User3() => new() { username = "emilys", password = "pasword" };
         }
+        #endregion
     }
 }

@@ -13,13 +13,14 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.UITest.PageObjectModels.Sauc
         public SauceDemoCartPage(IPage page) : base(page) { }
 
         #region general
+        public ILocator _CheckoutButton => Page.Locator("#checkout");
         public ILocator GetPriceByItemName(string itemName) => Page.Locator("[data-test='inventory-item']")
         .Filter(new() { HasText = itemName })
         .Locator("[data-test='inventory-item-price']");
         public ILocator GetQuantityByItemName(string itemName) => Page.Locator("[data-test='inventory-item']")
         .Filter(new() { HasText = itemName })
         .Locator("[data-test='item-quantity']");
-        public ILocator _CheckoutButton => Page.Locator("#checkout");
+        
         #endregion
 
         #region basic operations login page

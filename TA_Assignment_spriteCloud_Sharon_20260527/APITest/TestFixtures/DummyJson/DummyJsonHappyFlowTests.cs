@@ -24,6 +24,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             var response = await dummyJsonRequestHelper.Login(credentials);
             var responseBody = await response.TextAsync();
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("POST Call for Successfull login");
             Console.WriteLine($"URL:      {dummyJsonRequestHelper.DummyJsonBaseUrl}/auth/login");
             Console.WriteLine($"Username: {credentials.username}");
             Console.WriteLine($"Password: {credentials.password}");
@@ -55,6 +56,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             var response = await dummyJsonRequestHelper.GetSingleProduct("products/1");
             var responseBody = await response.TextAsync();
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("GET Call for request product with id 1");
             Console.WriteLine($"URL: {dummyJsonRequestHelper.DummyJsonBaseUrl}products/1");
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
@@ -105,6 +107,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             var responseBody = await addResponse.TextAsync();
 
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("POST Call for add 3 products to cart");
             Console.WriteLine($"URL: {dummyJsonRequestHelper.DummyJsonBaseUrl}carts/add");
             Console.WriteLine($"UserId: {cartRequest.UserId}");
             Console.WriteLine($"Products: {string.Join(", ", cartRequest.Products.Select(p => $"Id={p.Id} Qty={p.Quantity}"))}");
@@ -142,6 +145,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
             var response = await dummyJsonRequestHelper.DeleteCart("carts/1");
             var responseBody = await response.TextAsync();
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("DELETE Call for deleting entire cart");
             Console.WriteLine($"URL: {dummyJsonRequestHelper.DummyJsonBaseUrl}carts/1");
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
