@@ -27,6 +27,16 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
         }
 
+        public async Task<IAPIResponse> GetSinglePost(string endpoint)
+        {
+            return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
+        }
+
+        public async Task<IAPIResponse> GetSingleComment(string endpoint)
+        {
+            return await _context.GetAsync($"{DummyJsonBaseUrl}{endpoint}");
+        }
+
         // POST request methods
         public async Task<IAPIResponse> Login(LoginRequest credentials)
         {
