@@ -8,12 +8,11 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
 {
     public class DummyJsonResponseHelper
     {
-        // Login methods
         private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
-
+        #region Login methods
         public async Task<LoginResponse> GetLoginResponse(IAPIResponse response)
         {
             var json = await response.TextAsync();
@@ -21,7 +20,7 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             return JsonSerializer.Deserialize<LoginResponse>(json, _jsonOptions)
                 ?? throw new InvalidOperationException("Failed to deserialize LoginResponse.");
         }
-
+        #endregion
         public async Task<string> GetAccessToken(IAPIResponse response)
         {
             var loginResponse = await GetLoginResponse(response);
@@ -30,15 +29,16 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
                 ?? throw new InvalidOperationException("AccessToken was null in login response.");
         }
 
-        // Product methods
+        #region Product methods
         public async Task<ProductResponse> GetProductResponse(IAPIResponse response)
         {
             var responseBody = await response.TextAsync();
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             return JsonSerializer.Deserialize<ProductResponse>(responseBody, options);
         }
+        #endregion
 
-        // Cart methods
+        #region Cart methods
         public async Task<CartResponse> GetCartResponse(IAPIResponse response)
         {
             var responseBody = await response.TextAsync();
@@ -52,15 +52,18 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.Helpers.SpecificHelp
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             return JsonSerializer.Deserialize<DeleteCartResponse>(responseBody, options);
         }
+        #endregion
 
-        // Error validation methods
+        #region Error validation methods
 
-        // Login error method
+        #region Login error method
         public async Task<ErrorResponse> GetLoginErrorResponse(IAPIResponse response)
         {
             var json = await response.TextAsync();
             return JsonSerializer.Deserialize<ErrorResponse>(json, _jsonOptions)
                 ?? throw new InvalidOperationException("Failed to deserialize ErrorResponse.");
         }
+        #endregion
+        #endregion
     }
 }

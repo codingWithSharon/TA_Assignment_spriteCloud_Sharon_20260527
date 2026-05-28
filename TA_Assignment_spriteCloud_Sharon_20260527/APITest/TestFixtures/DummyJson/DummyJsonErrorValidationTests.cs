@@ -19,11 +19,12 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
         }
 
         [Test, Order(1)]
-        public async Task GET_NonExistentPost_Returns404()
+        public async Task GET_NonExistentPost_Returns()
         {
             var response = await dummyJsonRequestHelper.GetSinglePost("posts/99999");
             var responseBody = await response.TextAsync();
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("GET Call for a non existing post");
             Console.WriteLine($"URL: {dummyJsonRequestHelper.DummyJsonBaseUrl}posts/99999");
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
@@ -34,11 +35,12 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.APITest.TestFixtures.DummyJs
         }
 
         [Test, Order(2)]
-        public async Task GET_NonExistentComment_Returns404()
+        public async Task GET_NonExistentComment_Returns()
         {
             var response = await dummyJsonRequestHelper.GetSingleComment("comments/99999");
             var responseBody = await response.TextAsync();
             Console.WriteLine("=== REQUEST ===");
+            Console.WriteLine("GET Call for a non existing comment");
             Console.WriteLine($"URL: {dummyJsonRequestHelper.DummyJsonBaseUrl}comments/99999");
             Console.WriteLine("=== RESPONSE ===");
             Console.WriteLine($"Status: {response.Status}");
