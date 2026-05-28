@@ -13,6 +13,7 @@ jobs:
   ui-tests:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       checks: write
       pull-requests: write
     env:
@@ -62,6 +63,7 @@ jobs:
   api-tests:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       checks: write
       pull-requests: write
 
