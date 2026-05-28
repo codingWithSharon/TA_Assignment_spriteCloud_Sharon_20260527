@@ -21,8 +21,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -47,14 +45,14 @@ jobs:
 
       - name: Upload UI test results
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && hashFiles('./TestResults/ui-test-results.trx') != ''
         with:
           name: ui-test-results
           path: ./TestResults/*.trx
 
       - name: Publish UI test report
         uses: dorny/test-reporter@v1
-        if: always()
+        if: always() && hashFiles('./TestResults/ui-test-results.trx') != ''
         with:
           name: UI Test Results
           path: ./TestResults/ui-test-results.trx
@@ -70,8 +68,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
