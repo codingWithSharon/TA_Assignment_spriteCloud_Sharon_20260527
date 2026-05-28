@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -68,6 +70,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -88,14 +92,14 @@ jobs:
 
       - name: Upload API test results
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && hashFiles('./TestResults/api-test-results.trx') != ''
         with:
           name: api-test-results
           path: ./TestResults/*.trx
 
       - name: Publish API test report
         uses: dorny/test-reporter@v1
-        if: always()
+        if: always() && hashFiles('./TestResults/api-test-results.trx') != ''
         with:
           name: API Test Results
           path: ./TestResults/api-test-results.trx
