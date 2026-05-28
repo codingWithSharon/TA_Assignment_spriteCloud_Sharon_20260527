@@ -12,6 +12,10 @@ public class Setup : ContextTest
     public IPage Page { get; private set; } = null!;
 
     // UI
+    public SauceDemoCartPage sauceDemoCartPage = null!;
+    public SauceDemoCheckoutStepOnePage sauceDemoCheckoutStepOnePage = null!;
+    public SauceDemoCheckoutStepTwoPage sauceDemoCheckoutStepTwoPage = null!;
+    public SauceDemoInventoryPage sauceDemoInventoryPage = null!;
     public SauceDemoLoginPage sauceDemoLoginPage = null!;
 
     // API
@@ -46,7 +50,12 @@ public class Setup : ContextTest
             Timeout = 150000
         });
 
+        sauceDemoCartPage = new SauceDemoCartPage(Page);
+        sauceDemoCheckoutStepOnePage = new SauceDemoCheckoutStepOnePage(Page);
+        sauceDemoCheckoutStepTwoPage = new SauceDemoCheckoutStepTwoPage(Page);
+        sauceDemoInventoryPage = new SauceDemoInventoryPage(Page);
         sauceDemoLoginPage = new SauceDemoLoginPage(Page);
+        
     }
 
     [TearDown]

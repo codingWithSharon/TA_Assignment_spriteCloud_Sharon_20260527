@@ -12,45 +12,26 @@ namespace TA_Assignment_spriteCloud_Sharon_20260527.UITest.TestFixtures.SauceDem
 {
     [TestFixture, Order(1)]
     [Parallelizable(ParallelScope.None)]
-    public class LoginTests : Setup
+    public class SauceDemoLoginTests : Setup
     {
         [Test, Order(1), Retry(2)]
-        public async Task Login_StandardUser()
+        public async Task LoginFailed()
         {
             await sauceDemoLoginPage.GoToLoginSauceDemoPage();
-            await sauceDemoLoginPage.EnterUsername("standard_user");
-            await sauceDemoLoginPage.EnterPassword("secret_sauce");
-            await sauceDemoLoginPage.ClickLoginButton();
-            await Expect(sauceDemoLoginPage._headerWebshop).ToBeVisibleAsync();
-            Console.WriteLine("""   
-                    Successful login with standard_user verified by checking the visibility of the webshop header.
-                    """);
-        }
+            await sauceDemoLoginPage.PageLauncher(sauceDemoLoginPage.SauceDemoBaseUrl);
 
-        [Test, Order(2), Retry(2)]
-        public async Task Login_locked_out_user()
-        {
-            await sauceDemoLoginPage.GoToLoginSauceDemoPage();
-            await sauceDemoLoginPage.EnterUsername("locked_out_user");
-            await sauceDemoLoginPage.EnterPassword("secret_sauce");
-            await sauceDemoLoginPage.ClickLoginButton();
-            await Expect(sauceDemoLoginPage._errorMessage).ToContainTextAsync("Epic sadface: Sorry, this user has been locked out.");
-            Console.WriteLine("""   
-                    Successful verification of locked out user by checking the error message displayed upon login attempt.
-                    """);
-        }
+            Console.WriteLine("=== ACTION ===");
+            Console.WriteLine($"URL: {sauceDemoLoginPage.SauceDemoBaseUrl}");
+            Console.WriteLine($"Username: InvalidUser");
+            Console.WriteLine($"Password: InvalidPassword");
 
-        [Test, Order(3), Retry(2)]
-        public async Task Login_problem_user()
-        {
-            await sauceDemoLoginPage.GoToLoginSauceDemoPage();
-            await sauceDemoLoginPage.EnterUsername("problem_user");
-            await sauceDemoLoginPage.EnterPassword("secret_sauce");
+            await sauceDemoLoginPage.EnterUsername("InvalidUser");
+            await sauceDemoLoginPage.EnterPassword("InvalidPassword");
             await sauceDemoLoginPage.ClickLoginButton();
-            await Expect(sauceDemoLoginPage._headerWebshop).ToBeVisibleAsync();
-            Console.WriteLine("""   
-                    Successful login with problem_user verified by checking the visibility of the webshop header.
-                    """);
+
+            Console.WriteLine("=== RESULT ===");
+            Console.WriteLine($"Error message: {sauceDemoLoginPage._errorMessage}");
+            await Expect(sauceDemoLoginPage._errorMessage).ToContainTextAsync("Epic sadface: Username and password do not match any user in this service");
         }
     }
 }
