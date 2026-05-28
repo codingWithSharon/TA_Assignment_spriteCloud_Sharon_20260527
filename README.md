@@ -4,6 +4,12 @@
 This project contains automated tests for the TA Assignment submitted to SpriteCloud.
 It covers both **UI testing** (Sauce Demo) and **API testing** (DummyJSON), built with C# and Playwright.
 
+Approach
+Started with creating a framework and placing reusable components from my past practice projects into this one. Aiming to set up a project that is maintainable and scalable, therefore I use page object models for UIs and helpers and models for APIs. For generic components I try to move them to one place like for UI I move them to the BasePage.cs and for API it goes into a general directory. Within these directories I tend to group locators, functions and methods into categories. To keep thing readable I have used arrow functions and to have stable UI tests I have stayed away from xpaths.
+
+AI
+For this project I have used an AI chat for questions and helping me with complex functions. For the test report I do not have a lot of experience yet so I had AI updating my main.yml.
+
 ## Tech Stack
 - C# / .NET
 - Playwright and NUnit for testing
