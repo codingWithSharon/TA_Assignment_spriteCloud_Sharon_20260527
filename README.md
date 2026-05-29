@@ -1,4 +1,4 @@
-﻿# TA Assignment SpriteCloud – Sharon (2026-05-27)
+﻿# TA Assignment SC – Sharon (2026-05-27)
 
 ## Overview
 This project contains automated tests for the TA Assignment submitted to SpriteCloud.
