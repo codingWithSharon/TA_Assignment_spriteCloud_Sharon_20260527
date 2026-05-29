@@ -49,4 +49,4 @@ dotnet test --settings test.runsettings
 ## Test Credentials (Sauce Demo)
 | Username | Password |
 |---|---|
-| standard_user | secret_sauce |
+| locked_out_user | secret_sauce |
